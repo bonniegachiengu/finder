@@ -26,10 +26,12 @@ finder = Finder()
 
 # Run the Finder process with specified directory and extensions
 finder.run(directory=directory, extensions=extensions)
+```
 
 Command line usage:
 
-# Run in the terminal
+### Run in the terminal
+
 ```bash
 python finder.py /E:/Films/Movies/History/Manhunts .mp4 .mkv .avi
 
