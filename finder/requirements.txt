@@ -3,3 +3,4 @@ re # regex
 pathlib # file path
 pandas # data manipulation
 argparse # command line arguments
+setuptools # package management
