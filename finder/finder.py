@@ -1,3 +1,4 @@
+import argparse
 from pathfinder import PathFinder
 from stepextractor import StepExtractor
 from detailsextractor import DetailsExtractor
@@ -23,18 +24,17 @@ The Finder class provides a method for finding files in a directory tree that ma
 
 class Finder:
     '''Initialize Finder class'''
-    def __init__(self, directory, extensions):
-        self.directory = directory
-        self.extensions = extensions
+    def __init__(self):
+        pass
 
-    def run(self):
+    def run(self, directory, extensions):
         '''Run the Finder process'''
 
         # Find files in directory: PathFinder
-        pathfinder = PathFinder(filepath=self.directory)
+        pathfinder = PathFinder(filepath=directory)
 
         # Find files in directory tree
-        files = pathfinder.find(path=self.directory, extensions=self.extensions)
+        files = pathfinder.find(path=directory, extensions=extensions)
         print("Files found and saved to database")  # Debug print
 
         # Extract directory steps from file paths: StepExtractor
@@ -55,19 +55,17 @@ class Finder:
 def main():
     '''Main function to run the Finder process'''
 
-    # # Define directory and extensions from user input
-    # directory = input("Enter directory path: ")
-    # extensions = tuple(input("Enter file extensions separated by space: ").split())
-
-    # Define directory and extensions
-    directory = 'E:\Films\Media'
-    extensions = ('.mp4', '.mkv', '.avi')
+    # Parse command-line arguments
+    parser = argparse.ArgumentParser(description='Run the Finder process')
+    parser.add_argument('directory', type=str, help='Directory to search for files')
+    parser.add_argument('extensions', type=str, nargs='+', help='File extensions to search for')
+    args = parser.parse_args()
 
     # Initialize Finder object
-    finder = Finder(directory=directory, extensions=extensions)
+    finder = Finder()
 
-    # Run the Finder process
-    finder.run()
+    # Run the Finder process with specified directory and extensions
+    finder.run(directory=args.directory, extensions=tuple(args.extensions))
 
 # Run main function
 if __name__ == "__main__":

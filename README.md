@@ -10,30 +10,27 @@ The `finder` package is responsible for finding and extracting metadata from fil
 
 ## Usage
 
-To use the `finder` package, you can initialize the `PathFinder`, `StepExtractor`, and `DetailsExtractor` classes to find files, extract directory steps, and extract detailed metadata, respectively.
+To use the `finder` package, you can initialize the `Finder` class and call the `run` method with the desired directory and extensions.
 
 Example usage:
 
 ```python
-from finder.pathfinder import PathFinder
-from finder.stepextractor import StepExtractor
-from finder.detailsextractor import DetailsExtractor
+from finder import Finder
 
-# Initialize PathFinder object
-pathfinder = PathFinder(filepath='path/to/directory')
+# Specify directory and extensions
+directory = '/path/to/your/directory'
+extensions = ('.mp4', '.mkv', '.avi')
 
-# Find files in directory tree
-pathfinder.find(path='path/to/directory', extensions=('.txt', '.pdf'))
+# Initialize Finder object
+finder = Finder()
 
-# Initialize StepExtractor object
-stepextractor = StepExtractor()
+# Run the Finder process with specified directory and extensions
+finder.run(directory=directory, extensions=extensions)
 
-# Extract directory steps from file paths
-stepextractor.extract()
+Command line usage:
 
-# Initialize DetailsExtractor object
-details_extractor = DetailsExtractor()
+# Run in the terminal
+```bash
+python finder.py /E:/Films/Movies/History/Manhunts .mp4 .mkv .avi
 
-# Extract details from filenames and save to database
-details_extractor.extract()
 ```
