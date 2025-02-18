@@ -1,5 +1,5 @@
 import os
-from utils import filenaming, save, pathconstruct, titlextract
+from .utils import filenaming, save, pathconstruct, titlextract
 
 '''
 pathfinder.py is a module that provides a class for finding files in a directory tree.
@@ -35,8 +35,8 @@ class PathFinder:
         :return: List of file paths, file names, and file titles
         '''
 
-        # Initialize file list
-        files = []
+        # Initialize file set to ensure uniqueness
+        files = set()
 
         for root, dirs, filenames in os.walk(path):
             for filename in filenames:
@@ -48,16 +48,16 @@ class PathFinder:
                     filename = filenaming(filepath)
                     # Get file title
                     filetitle = titlextract(filename)
-                    # Add file path, file name, and file title to list
-                    files.append((filepath, filename, filetitle))
+                    # Add file path, file name, and file title to set
+                    files.add((filepath, filename, filetitle))
 
             for dir in dirs:
                 # Check if directory is not empty
                 if os.listdir(os.path.join(root, dir)):
                     # Recursively search directory
-                    files += self.find(os.path.join(root, dir), extensions)
+                    files.update(self.find(os.path.join(root, dir), extensions))
 
         # Save to database
         for file in files:
             self.save(columns=['filepath', 'filename', 'filetitle'], values=[file], table_title='filepaths')
-        return files
+        return list(files)

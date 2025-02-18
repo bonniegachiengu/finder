@@ -1,7 +1,7 @@
 import argparse
-from pathfinder import PathFinder
-from stepextractor import StepExtractor
-from detailsextractor import DetailsExtractor
+from .pathfinder import PathFinder
+from .stepextractor import StepExtractor
+from .detailsextractor import DetailsExtractor
 
 '''
 Finder class is the main class for the finder module.

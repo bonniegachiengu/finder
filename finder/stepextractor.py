@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from utils import pathextract, fetch
+from .utils import pathextract, fetch
 
 '''
 StepExtractor class is a PathFinder class used to extract directory steps from a filepath.

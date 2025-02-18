@@ -2,3 +2,5 @@
 """
 This module initializes the finder package for file indexing in media management applications.
 """
+
+from .finder import Finder

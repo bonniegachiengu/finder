@@ -1,5 +1,5 @@
 import sqlite3
-from utils import fetch, titlextract, yearextract, resextract, codecextract
+from .utils import fetch, titlextract, yearextract, resextract, codecextract
 
 '''
 DetailsExtractor class is used to extract details from the filenames of files in the filepaths table in the classified.db database.

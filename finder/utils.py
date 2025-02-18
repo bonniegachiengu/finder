@@ -43,22 +43,31 @@ def titlextract(filename):
     The titlextract function takes a file name as an argument and returns the title of the file. 
     The title is extracted by changing filenames with this format "Duck.Duck.Goose.2018.720p.BluRay.x264-[YTS.AM].mp4" to
     "Duck Duck Goose".
-
-    The titlextract function is used by the PathFinder class in the pathfinder module to extract the title of a file from its name.
     '''
 
     # Remove file extension
     filename = filenaming(filename)
-    filename = filename.split('.')[0:-1] # Remove file extension
+    filename = filename.rsplit('.', 1)[0]  # Remove file extension
+
+    # Remove parentheses and their contents but preserve the surrounding dots
+    filename = re.sub(r'\.\(.*?\)\.', '.', filename)
+    filename = re.sub(r'\(.*?\)', '', filename)  # Remove any leftover parentheses content without surrounding dots
+
+    # Split filename into parts using both '.' and spaces as delimiters
+    filename_parts = re.split(r'[.\s]', filename)
+
+    # Words to ignore
+    ignore_words = {'webrip', 'x264', 'bluray', '720p', '1080p', 'yify', 'brrip'}
 
     # Extract title up to year
-    title = [] # Initialize title list
-    for word in filename:
-        if word.isnumeric() and len(word) == 4:
+    title = []  # Initialize title list
+    for word in filename_parts:
+        if word.isnumeric() and len(word) == 4:  # If it's a year, stop adding to title
             break
-        title.append(word)
+        if word.lower() not in ignore_words:  # Ignore specific words
+            title.append(word)
 
-    # Join title words
+    # Join title words with spaces
     title = ' '.join(title)
 
     return title

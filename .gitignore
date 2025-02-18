@@ -60,3 +60,6 @@ env/
 
 # Ignore example files
 /finder/example.py
+
+# Ignore setup files
+finder.egg-info/
