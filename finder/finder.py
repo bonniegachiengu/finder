@@ -27,28 +27,28 @@ class Finder:
     def __init__(self):
         pass
 
-    def run(self, directory, extensions):
+    def run(self, directory, extensions, check_empty=False):
         '''Run the Finder process'''
 
         # Find files in directory: PathFinder
         pathfinder = PathFinder(filepath=directory)
 
         # Find files in directory tree
-        files = pathfinder.find(path=directory, extensions=extensions)
+        files = pathfinder.find(path=directory, extensions=extensions, check_empty=check_empty)
         print("Files found and saved to database")  # Debug print
 
         # Extract directory steps from file paths: StepExtractor
         stepextractor = StepExtractor()
 
         # Extract directory steps
-        stepextractor.extract()
+        stepextractor.extract(check_empty=check_empty)
         print("Directory steps extracted and saved to database")  # Debug print
 
         # Extract details from file paths: DetailsExtractor
         detailsextractor = DetailsExtractor()
 
         # Extract details from filenames
-        detailsextractor.extract()
+        detailsextractor.extract(check_empty=check_empty)
         print("Details extracted and saved to database") # Debug print
 
 # Define main function
@@ -65,7 +65,7 @@ def main():
     finder = Finder()
 
     # Run the Finder process with specified directory and extensions
-    finder.run(directory=args.directory, extensions=tuple(args.extensions))
+    finder.run(directory=args.directory, extensions=tuple(args.extensions), check_empty=True)
 
 # Run main function
 if __name__ == "__main__":

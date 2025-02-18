@@ -1,5 +1,5 @@
 import sqlite3
-from .utils import fetch, titlextract, yearextract, resextract, codecextract
+from .utils import fetch, titlextract, yearextract, resextract, codecextract, collect
 
 '''
 DetailsExtractor class is used to extract details from the filenames of files in the filepaths table in the classified.db database.
@@ -11,13 +11,13 @@ class DetailsExtractor:
     def __init__(self):
         self.details = {} # Dictionary to store details extracted from filenames
 
-    def extract(self):
+    def extract(self, check_empty=False):
         '''
         Extract details from filenames stored in the filepaths table.
         Constructs a dictionary of details extracted from filenames and saves it to the databases.
         '''
         # Fetch filenames and file_ids from the database
-        filepaths = fetch(columns=['id', 'filename'], table_title='filepaths')
+        filepaths = collect(table_title='filepaths', columns=['id', 'filename'], check_empty=check_empty)
 
         # Extract details from filenames
         for filepath_tuple in filepaths: # Iterate over filepaths

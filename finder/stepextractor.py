@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from .utils import pathextract, fetch
+from .utils import pathextract, fetch, collect
 
 '''
 StepExtractor class is a PathFinder class used to extract directory steps from a filepath.
@@ -20,13 +20,13 @@ class StepExtractor:
             self.dbal[parent] = set()
         self.dbal[parent].add(child)
 
-    def extract(self):
+    def extract(self, check_empty=False):
         '''
         Extract directory steps from files paths stored in the filepath table.
         Constructs a dictionary-based adjacency list for directory steps (dbal) and saves it.
         '''
         # Fetch file paths from the database
-        filepaths = fetch(columns=['id', 'filepath'], table_title='filepaths')
+        filepaths = collect(table_title='filepaths', columns=['id', 'filepath'], check_empty=check_empty)
 
         # Build the dbal adjacency list
         for filepath_tuple in filepaths:

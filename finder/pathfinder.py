@@ -1,5 +1,5 @@
 import os
-from .utils import filenaming, save, pathconstruct, titlextract
+from .utils import filenaming, save, pathconstruct, titlextract, collect
 
 '''
 pathfinder.py is a module that provides a class for finding files in a directory tree.
@@ -22,7 +22,7 @@ class PathFinder:
         self.save = save # Save data to a sqlite3 database
 
     # Find files in a directory tree
-    def find(self, path, extensions):
+    def find(self, path, extensions, check_empty=False):
         '''
         Find files in a directory tree that match a specified pattern.
 
@@ -32,6 +32,7 @@ class PathFinder:
 
         :param path: Directory path
         :param extensions: File extensions to match
+        :param check_empty: Boolean to check if the table is empty
         :return: List of file paths, file names, and file titles
         '''
 

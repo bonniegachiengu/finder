@@ -201,3 +201,40 @@ def fetch(columns, table_title):
     conn.close()
     
     return data
+
+
+def collect(table_title, columns, check_empty=False):
+    """
+    Fetch data from a sqlite3 database based on whether the table is empty or not.
+    
+    :param table_title: Table title
+    :param columns: List of column names
+    :param check_empty: Boolean to check if the table is empty
+    :return: List of data
+    """
+    conn = sqlite3.connect('../classified.db')
+    c = conn.cursor()
+    
+    if check_empty:
+        # Check if the table is empty
+        c.execute(f"SELECT COUNT(*) FROM {table_title}")
+        count = c.fetchone()[0]
+        if count == 0:
+            # Fetch all data if the table is empty
+            c.execute(f"SELECT {', '.join(columns)} FROM {table_title}")
+        else:
+            # Fetch data where file_id is not in another table
+            c.execute(f"""
+            SELECT {', '.join(columns)}
+            FROM {table_title} t1
+            LEFT JOIN filemetadata t2 ON t1.file_id = t2.file_id
+            WHERE t2.file_id IS NULL
+            """)
+    else:
+        # Fetch all data
+        c.execute(f"SELECT {', '.join(columns)} FROM {table_title}")
+    
+    data = c.fetchall()
+    conn.close()
+    
+    return data
