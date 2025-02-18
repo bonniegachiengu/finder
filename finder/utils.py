@@ -70,6 +70,12 @@ def titlextract(filename):
     # Join title words with spaces
     title = ' '.join(title)
 
+    # Conditional statement to handle specific titles
+    if title == "7 5 0 0":
+        title = "7500"
+    elif title == "2 0 1 2":
+        title = "2012"
+
     return title
 
 
