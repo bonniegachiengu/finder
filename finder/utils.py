@@ -75,6 +75,8 @@ def titlextract(filename):
         title = "7500"
     elif title == "2 0 1 2":
         title = "2012"
+    elif title == "Wonder Woman 1_9_8_4":
+        title = "Wonder Woman 1984"
 
     return title
 
