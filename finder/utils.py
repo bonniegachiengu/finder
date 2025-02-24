@@ -77,6 +77,10 @@ def titlextract(filename):
         title = "2012"
     elif title == "Wonder Woman 1_9_8_4":
         title = "Wonder Woman 1984"
+    elif title == "G I  Joe Retaliation":
+        title = "G.I. Joe: Retaliation"
+    elif title == "G I  Joe Rise of Cobra":
+        title = "G.I. Joe: The Rise of Cobra"
 
     return title
 
